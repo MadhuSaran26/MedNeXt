@@ -59,6 +59,29 @@ class nnUNetTrainerV2_SwinUNETR_128x128x128(nnUNetTrainerV2_SwinUNETR):
             self.network.cuda()
         self.network.inference_apply_nonlin = softmax_helper
 
+class nnUNetTrainerV2_SwinUNETR_128x128x128_lr_0_0025(nnUNetTrainerV2_SwinUNETR):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs)
+        self.initial_lr = 0.0025
+
+    def initialize_network(self):
+        """
+        changed deep supervision to False
+        :return:
+        """
+        self.network = SwinUNETR(img_size=(128, 128, 128),
+                            in_channels=self.num_input_channels,
+                            out_channels=self.num_classes,
+                            feature_size=48,
+                            use_checkpoint=False,
+                            dummy=False
+                        )
+
+        if torch.cuda.is_available():
+            self.network.cuda()
+        self.network.inference_apply_nonlin = softmax_helper
+
 
 class nnUNetTrainerV2_SwinUNETR_128x128x128_lr_5e_4(nnUNetTrainerV2_SwinUNETR):
 

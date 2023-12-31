@@ -198,8 +198,8 @@ def reset_trainerName_these(experiments=('nnUNetTrainerNewCandidate23_FabiansPre
 
 
 if __name__ == "__main__":
-    base = "/dkfz/cluster/gpu/data/OE0441/roys/raw_data/nnUNet_raw_data_base/kits19/data"
-    out = "/dkfz/cluster/gpu/data/OE0441/roys/raw_data/nnUNet_raw_data_base/nnUNet_raw_data/Task040_KiTS2019"
+    base = "/scratch/msarava7/Data/kits19/data"
+    out = "/scratch/msarava7/Data/nnUNet_Base_Folder/nnUNet_raw_data/Task040_KiTS2019"
     cases = subdirs(base, join=False)
 
     maybe_mkdir_p(out)

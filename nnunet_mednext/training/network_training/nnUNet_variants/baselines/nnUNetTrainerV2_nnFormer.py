@@ -58,6 +58,12 @@ class nnUNetTrainerV2_nnFormerTumor(nnUNetTrainerV2_noDeepSupervision):
                                         )
         self.lr_scheduler = None
 
+class nnUNetTrainerV2_nnFormerTumor_lr_0_0025(nnUNetTrainerV2_nnFormerTumor):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs)
+        self.initial_lr = 0.0025
+
 
 class nnUNetTrainerV2_nnFormerTumor_Dummy(nnUNetTrainerV2_nnFormerTumor):
 

@@ -145,6 +145,7 @@ def main():
     cascade_trainer_class_name = args.cascade_trainer_class_name
 
     task_name = args.task_name
+    print("The existing predictions will be overwritten:", overwrite_existing)
 
     if not task_name.startswith("Task"):
         task_id = int(task_name)

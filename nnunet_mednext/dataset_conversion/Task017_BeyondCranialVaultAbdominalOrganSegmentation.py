@@ -20,7 +20,7 @@ import shutil
 
 
 if __name__ == "__main__":
-    base = "/media/yunlu/10TB/research/other_data/Multi-Atlas Labeling Beyond the Cranial Vault/RawData/"
+    base = "/scratch/msarava7/Data/BTCV/RawData/"
 
     task_id = 17
     task_name = "AbdominalOrganSegmentation"
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     maybe_mkdir_p(imagests)
     maybe_mkdir_p(labelstr)
 
-    train_folder = join(base, "Training/img")
-    label_folder = join(base, "Training/label")
-    test_folder = join(base, "Test/img")
+    train_folder = join(base, "Training/img/imagesTr")
+    label_folder = join(base, "Training/label/labelsTr")
+    test_folder = join(base, "Testing/img/imagesTs")
     train_patient_names = []
     test_patient_names = []
     train_patients = subfiles(train_folder, join=False, suffix = 'nii.gz')

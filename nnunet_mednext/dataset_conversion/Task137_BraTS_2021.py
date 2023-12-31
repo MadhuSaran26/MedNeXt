@@ -626,8 +626,8 @@ if __name__ == "__main__":
     """
 
     task_name = "Task137_BraTS2021"
-    downloaded_data_dir = "/dkfz/cluster/gpu/data/OE0441/roys/raw_data/nnUNet_raw_data_base/brats21/training_data"
-    downloaded_data_dir_val = "/dkfz/cluster/gpu/data/OE0441/roys/raw_data/nnUNet_raw_data_base/brats21/validation_data"
+    downloaded_data_dir = "/scratch/msarava7/Data/BraTS2021/RSNA_ASNR_MICCAI_BraTS2021_TrainingData_16July2021"
+    ## downloaded_data_dir_val = "/dkfz/cluster/gpu/data/OE0441/roys/raw_data/nnUNet_raw_data_base/brats21/validation_data"
 
     target_base = join(nnUNet_raw_data, task_name)
     target_imagesTr = join(target_base, "imagesTr")
@@ -635,117 +635,117 @@ if __name__ == "__main__":
     target_imagesTs = join(target_base, "imagesTs")
     target_labelsTr = join(target_base, "labelsTr")
 
-    # maybe_mkdir_p(target_imagesTr)
-    # maybe_mkdir_p(target_imagesVal)
-    # maybe_mkdir_p(target_imagesTs)
-    # maybe_mkdir_p(target_labelsTr)
+    maybe_mkdir_p(target_imagesTr)
+    maybe_mkdir_p(target_imagesVal)
+    maybe_mkdir_p(target_imagesTs)
+    maybe_mkdir_p(target_labelsTr)
 
-    # patient_names = []
-    # cur = join(downloaded_data_dir)
-    # for p in subdirs(cur, join=False):
-    #     patdir = join(cur, p)
-    #     patient_name = p
-    #     patient_names.append(patient_name)
-    #     t1 = join(patdir, p + "_t1.nii.gz")
-    #     t1c = join(patdir, p + "_t1ce.nii.gz")
-    #     t2 = join(patdir, p + "_t2.nii.gz")
-    #     flair = join(patdir, p + "_flair.nii.gz")
-    #     seg = join(patdir, p + "_seg.nii.gz")
+    patient_names = []
+    cur = join(downloaded_data_dir)
+    for p in subdirs(cur, join=False):
+        patdir = join(cur, p)
+        patient_name = p
+        patient_names.append(patient_name)
+        t1 = join(patdir, p + "_t1.nii.gz")
+        t1c = join(patdir, p + "_t1ce.nii.gz")
+        t2 = join(patdir, p + "_t2.nii.gz")
+        flair = join(patdir, p + "_flair.nii.gz")
+        seg = join(patdir, p + "_seg.nii.gz")
 
-    #     assert all([
-    #         isfile(t1),
-    #         isfile(t1c),
-    #         isfile(t2),
-    #         isfile(flair),
-    #         isfile(seg)
-    #     ]), "%s" % patient_name
+        assert all([
+            isfile(t1),
+            isfile(t1c),
+            isfile(t2),
+            isfile(flair),
+            isfile(seg)
+        ]), "%s" % patient_name
 
-    #     shutil.copy(t1, join(target_imagesTr, patient_name + "_0000.nii.gz"))
-    #     shutil.copy(t1c, join(target_imagesTr, patient_name + "_0001.nii.gz"))
-    #     shutil.copy(t2, join(target_imagesTr, patient_name + "_0002.nii.gz"))
-    #     shutil.copy(flair, join(target_imagesTr, patient_name + "_0003.nii.gz"))
+        shutil.copy(t1, join(target_imagesTr, patient_name + "_0000.nii.gz"))
+        shutil.copy(t1c, join(target_imagesTr, patient_name + "_0001.nii.gz"))
+        shutil.copy(t2, join(target_imagesTr, patient_name + "_0002.nii.gz"))
+        shutil.copy(flair, join(target_imagesTr, patient_name + "_0003.nii.gz"))
 
-    #     copy_BraTS_segmentation_and_convert_labels(seg, join(target_labelsTr, patient_name + ".nii.gz"))
-
-
-    # json_dict = OrderedDict()
-    # json_dict['name'] = "BraTS2021"
-    # json_dict['description'] = "nothing"
-    # json_dict['tensorImageSize'] = "4D"
-    # json_dict['reference'] = "see BraTS2021"
-    # json_dict['licence'] = "see BraTS2021 license"
-    # json_dict['release'] = "0.0"
-    # json_dict['modality'] = {
-    #     "0": "T1",
-    #     "1": "T1ce",
-    #     "2": "T2",
-    #     "3": "FLAIR"
-    # }
-    # json_dict['labels'] = {
-    #     "0": "background",
-    #     "1": "edema",
-    #     "2": "non-enhancing",
-    #     "3": "enhancing",
-    # }
-    # json_dict['numTraining'] = len(patient_names)
-    # json_dict['numTest'] = 0
-    # json_dict['training'] = [{'image': "./imagesTr/%s.nii.gz" % i, "label": "./labelsTr/%s.nii.gz" % i} for i in
-    #                          patient_names]
-    # json_dict['test'] = []
-
-    # save_json(json_dict, join(target_base, "dataset.json"))
-
-    # if downloaded_data_dir_val is not None:
-    #     for p in subdirs(downloaded_data_dir_val, join=False):
-    #         patdir = join(downloaded_data_dir_val, p)
-    #         patient_name = p
-    #         t1 = join(patdir, p + "_t1.nii.gz")
-    #         t1c = join(patdir, p + "_t1ce.nii.gz")
-    #         t2 = join(patdir, p + "_t2.nii.gz")
-    #         flair = join(patdir, p + "_flair.nii.gz")
-
-    #         assert all([
-    #             isfile(t1),
-    #             isfile(t1c),
-    #             isfile(t2),
-    #             isfile(flair),
-    #         ]), "%s" % patient_name
-
-    #         shutil.copy(t1, join(target_imagesVal, patient_name + "_0000.nii.gz"))
-    #         shutil.copy(t1c, join(target_imagesVal, patient_name + "_0001.nii.gz"))
-    #         shutil.copy(t2, join(target_imagesVal, patient_name + "_0002.nii.gz"))
-    #         shutil.copy(flair, join(target_imagesVal, patient_name + "_0003.nii.gz"))
+        copy_BraTS_segmentation_and_convert_labels(seg, join(target_labelsTr, patient_name + ".nii.gz"))
 
 
-    # downloaded_data_dir_test = "/home/fabian/Downloads/MICCAI_BraTS2020_TestingData"
+    json_dict = OrderedDict()
+    json_dict['name'] = "BraTS2021"
+    json_dict['description'] = "nothing"
+    json_dict['tensorImageSize'] = "4D"
+    json_dict['reference'] = "see BraTS2021"
+    json_dict['licence'] = "see BraTS2021 license"
+    json_dict['release'] = "0.0"
+    json_dict['modality'] = {
+        "0": "T1",
+        "1": "T1ce",
+        "2": "T2",
+        "3": "FLAIR"
+    }
+    json_dict['labels'] = {
+        "0": "background",
+        "1": "edema",
+        "2": "non-enhancing",
+        "3": "enhancing",
+    }
+    json_dict['numTraining'] = len(patient_names)
+    json_dict['numTest'] = 0
+    json_dict['training'] = [{'image': "./imagesTr/%s.nii.gz" % i, "label": "./labelsTr/%s.nii.gz" % i} for i in
+                             patient_names]
+    json_dict['test'] = []
 
-    # if isdir(downloaded_data_dir_test):
-    #     for p in subdirs(downloaded_data_dir_test, join=False):
-    #         patdir = join(downloaded_data_dir_test, p)
-    #         patient_name = p
-    #         t1 = join(patdir, p + "_t1.nii.gz")
-    #         t1c = join(patdir, p + "_t1ce.nii.gz")
-    #         t2 = join(patdir, p + "_t2.nii.gz")
-    #         flair = join(patdir, p + "_flair.nii.gz")
+    save_json(json_dict, join(target_base, "dataset.json"))
 
-    #         assert all([
-    #             isfile(t1),
-    #             isfile(t1c),
-    #             isfile(t2),
-    #             isfile(flair),
-    #         ]), "%s" % patient_name
-
-    #         shutil.copy(t1, join(target_imagesTs, patient_name + "_0000.nii.gz"))
-    #         shutil.copy(t1c, join(target_imagesTs, patient_name + "_0001.nii.gz"))
-    #         shutil.copy(t2, join(target_imagesTs, patient_name + "_0002.nii.gz"))
-    #         shutil.copy(flair, join(target_imagesTs, patient_name + "_0003.nii.gz"))
-
-    # test set
-    #  nnUNet_ensemble -f nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold -o ensembled_nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold
-    # apply_threshold_to_folder('ensembled_nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold/', 'ensemble_PP200/', 200, 2)
-    convert_labels_back_to_BraTS_2018_2019_convention('/home/s539y-remote/results/MICCAI23_testset_preds/Task137_BraTS2021/nnUNetTrainerV2_MedNeXt_D1_kernel5', '/home/s539y-remote/results/MICCAI23_testset_preds/Task137_BraTS2021/nnUNetTrainerV2_MedNeXt_D1_kernel5_converted')
-
-    # export for publication of weights
-    # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA4_BN -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 -t 82 -o nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold.zip --disable_strict
-    # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA3_BN_BD -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 -t 82 -o nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold.zip --disable_strict
-    # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA4_BN_BD -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 -t 82 -o nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold.zip --disable_strict
+    ## # if downloaded_data_dir_val is not None:
+    ## #     for p in subdirs(downloaded_data_dir_val, join=False):
+    ## #         patdir = join(downloaded_data_dir_val, p)
+    ## #         patient_name = p
+    ## #         t1 = join(patdir, p + "_t1.nii.gz")
+    ## #         t1c = join(patdir, p + "_t1ce.nii.gz")
+    ## #         t2 = join(patdir, p + "_t2.nii.gz")
+    ## #         flair = join(patdir, p + "_flair.nii.gz")
+## 
+    ## #         assert all([
+    ## #             isfile(t1),
+    ## #             isfile(t1c),
+    ## #             isfile(t2),
+    ## #             isfile(flair),
+    ## #         ]), "%s" % patient_name
+## 
+    ## #         shutil.copy(t1, join(target_imagesVal, patient_name + "_0000.nii.gz"))
+    ## #         shutil.copy(t1c, join(target_imagesVal, patient_name + "_0001.nii.gz"))
+    ## #         shutil.copy(t2, join(target_imagesVal, patient_name + "_0002.nii.gz"))
+    ## #         shutil.copy(flair, join(target_imagesVal, patient_name + "_0003.nii.gz"))
+## 
+## 
+    ## # downloaded_data_dir_test = "/home/fabian/Downloads/MICCAI_BraTS2020_TestingData"
+## 
+    ## # if isdir(downloaded_data_dir_test):
+    ## #     for p in subdirs(downloaded_data_dir_test, join=False):
+    ## #         patdir = join(downloaded_data_dir_test, p)
+    ## #         patient_name = p
+    ## #         t1 = join(patdir, p + "_t1.nii.gz")
+    ## #         t1c = join(patdir, p + "_t1ce.nii.gz")
+    ## #         t2 = join(patdir, p + "_t2.nii.gz")
+    ## #         flair = join(patdir, p + "_flair.nii.gz")
+## 
+    ## #         assert all([
+    ## #             isfile(t1),
+    ## #             isfile(t1c),
+    ## #             isfile(t2),
+    ## #             isfile(flair),
+    ## #         ]), "%s" % patient_name
+## 
+    ## #         shutil.copy(t1, join(target_imagesTs, patient_name + "_0000.nii.gz"))
+    ## #         shutil.copy(t1c, join(target_imagesTs, patient_name + "_0001.nii.gz"))
+    ## #         shutil.copy(t2, join(target_imagesTs, patient_name + "_0002.nii.gz"))
+    ## #         shutil.copy(flair, join(target_imagesTs, patient_name + "_0003.nii.gz"))
+## 
+    ## # test set
+    ## #  nnUNet_ensemble -f nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold -o ensembled_nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold
+    ## # apply_threshold_to_folder('ensembled_nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold__nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold/', 'ensemble_PP200/', 200, 2)
+    ## convert_labels_back_to_BraTS_2018_2019_convention('/home/s539y-remote/results/MICCAI23_testset_preds/Task137_BraTS2021/nnUNetTrainerV2_MedNeXt_D1_kernel5', '/home/s539y-remote/results/MICCAI23_testset_preds/Task137_BraTS2021/nnUNetTrainerV2_MedNeXt_D1_kernel5_converted')
+## 
+    ## # export for publication of weights
+    ## # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA4_BN -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 -t 82 -o nnUNetTrainerV2BraTSRegions_DA4_BN__nnUNetPlansv2.1_bs5_15fold.zip --disable_strict
+    ## # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA3_BN_BD -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 -t 82 -o nnUNetTrainerV2BraTSRegions_DA3_BN_BD__nnUNetPlansv2.1_bs5_5fold.zip --disable_strict
+    ## # nnUNet_export_model_to_zip -tr nnUNetTrainerV2BraTSRegions_DA4_BN_BD -pl nnUNetPlansv2.1_bs5 -f 0 1 2 3 4 -t 82 -o nnUNetTrainerV2BraTSRegions_DA4_BN_BD__nnUNetPlansv2.1_bs5_5fold.zip --disable_strict

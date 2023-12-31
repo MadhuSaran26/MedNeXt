@@ -112,6 +112,3 @@ ENV/
 *.jpeg
 
 *.model
-
-#sbatch scripts
-sbatch_scripts/*

@@ -2,9 +2,9 @@
 
 #SBATCH -N 1           # number of nodes
 #SBATCH -c 20            # number of "tasks" (default: 1 core per task)
-#SBATCH --mem=64G
-#SBATCH -t 1-04:00:00   # time in d-hh:mm:ss
-#SBATCH -p general       # partition 
+#SBATCH --mem=70G
+#SBATCH -t 0-04:00:00   # time in d-hh:mm:ss
+#SBATCH -p htc       # partition 
 #SBATCH -q public       # QOS
 #SBATCH -G a100:1  # number of GPUs
 #SBATCH -o /scratch/msarava7/IAI/Results/Benchmarking_Runs/slurm.amos.seg.mednext.%x.%j.out # file to save job's STDOUT (%j = JobId)

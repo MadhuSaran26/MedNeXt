@@ -14,6 +14,7 @@
 
 from collections import OrderedDict
 from batchgenerators.utilities.file_and_folder_operations import *
+from nnunet_mednext.paths import nnUNet_raw_data
 import shutil
 import numpy as np
 from sklearn.model_selection import KFold
@@ -33,9 +34,10 @@ def convert_to_submission(source_dir, target_dir):
 
 
 if __name__ == "__main__":
-    folder = "/media/fabian/My Book/datasets/ACDC/training"
-    folder_test = "/media/fabian/My Book/datasets/ACDC/testing/testing"
-    out_folder = "/media/fabian/My Book/MedicalDecathlon/MedicalDecathlon_raw_splitted/Task027_ACDC"
+    folder = "/scratch/msarava7/Data/RawData/ACDC/database/training"
+    folder_test = "/scratch/msarava7/Data/RawData/ACDC/database/testing"
+    foldername = "Task027_ACDC"
+    out_folder = join(nnUNet_raw_data, foldername)
 
     maybe_mkdir_p(join(out_folder, "imagesTr"))
     maybe_mkdir_p(join(out_folder, "imagesTs"))
@@ -95,7 +97,7 @@ if __name__ == "__main__":
     patients = np.unique([i[:10] for i in all_train_files])
     patientids = [i[:-12] for i in all_train_files]
 
-    kf = KFold(5, True, 12345)
+    kf = KFold(n_splits=5, shuffle=True, random_state=12345)
     for tr, val in kf.split(patients):
         splits.append(OrderedDict())
         tr_patients = patients[tr]
@@ -103,4 +105,4 @@ if __name__ == "__main__":
         val_patients = patients[val]
         splits[-1]['val'] = [i[:-12] for i in all_train_files if i[:10] in val_patients]
 
-    save_pickle(splits, "/media/fabian/nnunet/Task027_ACDC/splits_final.pkl")
+    save_pickle(splits, join(out_folder, "splits_final.pkl"))

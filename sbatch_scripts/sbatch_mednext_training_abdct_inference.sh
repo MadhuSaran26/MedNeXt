@@ -3,8 +3,8 @@
 #SBATCH -N 1           # number of nodes
 #SBATCH -c 20            # number of "tasks" (default: 1 core per task)
 #SBATCH --mem=64G
-#SBATCH -t 0-04:00:00   # time in d-hh:mm:ss
-#SBATCH -p htc       # partition 
+#SBATCH -t 1-04:00:00   # time in d-hh:mm:ss
+#SBATCH -p general       # partition 
 #SBATCH -q public       # QOS
 #SBATCH -G a100:1  # number of GPUs
 #SBATCH -o /scratch/msarava7/IAI/Results/Benchmarking_Runs/slurm.adbct.seg.mednext.%x.%j.out # file to save job's STDOUT (%j = JobId)
@@ -24,7 +24,7 @@ export RESULTS_FOLDER="/scratch/msarava7/Models/nnUNet_Results_Folder"
 
 cd /scratch/msarava7/MedNeXt/
 
-mednextv1_predict -i /scratch/msarava7/Data/nnUNet_Base_Folder/nnUNet_raw_data/Task218_AMOS2022_task1/imagesTs -o /scratch/msarava7/Data/nnUNet_Predictions/Task218_AMOS2022_task1 -tr nnUNetTrainerV2_MedNeXt_B_kernel3 -ctr nnUNetTrainerV2CascadeFullRes -m 3d_fullres -p nnUNetPlansv2.1_trgSp_1x1x1 -t Task617_AbdomenCT_subtask1
+mednextv1_predict -i /scratch/msarava7/Data/nnUNet_Base_Folder/nnUNet_raw_data/Task617_AbdomenCT_subtask1/imagesTs -o /scratch/msarava7/Data/nnUNet_Predictions/Task617_AbdomenCT_subtask1 -tr nnUNetTrainerV2_MedNeXt_B_kernel3 -ctr nnUNetTrainerV2CascadeFullRes -m 3d_fullres -p nnUNetPlansv2.1_trgSp_1x1x1 -t Task617_AbdomenCT_subtask1
 
 
 # E-mail diagnostic results to yourself using mailserver and a heredoc

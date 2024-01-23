@@ -2,9 +2,9 @@
 
 #SBATCH -N 1           # number of nodes
 #SBATCH -c 20            # number of "tasks" (default: 1 core per task)
-#SBATCH --mem=40G
-#SBATCH -t 3-04:00:00   # time in d-hh:mm:ss
-#SBATCH -p general       # partition 
+#SBATCH --mem=64G
+#SBATCH -t 0-04:00:00   # time in d-hh:mm:ss
+#SBATCH -p htc       # partition 
 #SBATCH -q public       # QOS
 #SBATCH -G a100:1  # number of GPUs
 #SBATCH -o /scratch/msarava7/IAI/Results/Benchmarking_Runs/slurm.btcv.seg.swinunetr.0025lr.%x.%j.out # file to save job's STDOUT (%j = JobId)
@@ -24,7 +24,7 @@ export RESULTS_FOLDER="/scratch/msarava7/Models/nnUNet_Results_Folder"
 
 cd /scratch/msarava7/MedNeXt/
 
-mednextv1_train 3d_fullres nnUNetTrainerV2_SwinUNETR_128x128x128_lr_0_0025 Task017_AbdominalOrganSegmentation 1 -p nnUNetPlansv2.1_trgSp_1x1x1
+mednextv1_train 3d_fullres nnUNetTrainerV2_SwinUNETR_128x128x128_lr_0_0025 Task017_AbdominalOrganSegmentation 1 -p nnUNetPlansv2.1_trgSp_1x1x1 -val
 
 
 # E-mail diagnostic results to yourself using mailserver and a heredoc

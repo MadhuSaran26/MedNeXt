@@ -15,6 +15,7 @@
 from collections import OrderedDict
 import SimpleITK as sitk
 from batchgenerators.utilities.file_and_folder_operations import *
+from nnunet_mednext.paths import nnUNet_raw_data
 from multiprocessing import Pool
 import numpy as np
 from nnunet_mednext.configuration import default_num_threads
@@ -52,11 +53,11 @@ def export_segmentations_postprocess(indir, outdir):
 
 
 if __name__ == "__main__":
-    train_dir = "/media/fabian/DeepLearningData/tmp/LITS-Challenge-Train-Data"
-    test_dir = "/media/fabian/My Book/datasets/LiTS/test_data"
+    train_dir = "/scratch/msarava7/Data/RawData/LiTS/training"
+    test_dir = "/scratch/msarava7/Data/RawData/LiTS/testing/LITS-Challenge-Test-Data"
+    foldername = "Task029_LITS"
 
-
-    output_folder = "/media/fabian/My Book/MedicalDecathlon/MedicalDecathlon_raw_splitted/Task029_LITS"
+    output_folder = join(nnUNet_raw_data, foldername)
     img_dir = join(output_folder, "imagesTr")
     lab_dir = join(output_folder, "labelsTr")
     img_dir_te = join(output_folder, "imagesTs")
